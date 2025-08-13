@@ -20,7 +20,7 @@ We are using Two EC2 Ubuntu machines:
 - Name 1st Ubuntu Machine as "ELK"
 - Name 2nd Ubuntu machine as "Server"
 
-https://github.com/gopalkamalsharma/ELK/blob/main/AWS%20Machine.png
+AWSMachine.png
 
 ## On ELK Machine
 
