@@ -1,0 +1,72 @@
+🔹 Inside VirtualBuddy (Monterey VM)
+
+Make a blank 16GB disk image
+
+hdiutil create -o ~/MontereyInstaller.dmg -size 16g -layout SPUD -fs HFS+J
+
+
+Attach the image (mount it at /Volumes/InstallUSB)
+
+hdiutil attach ~/MontereyInstaller.dmg -mountpoint /Volumes/InstallUSB
+
+
+Run createinstallmedia (this will copy the installer onto the dmg)
+
+sudo /Applications/Install\ macOS\ Monterey.app/Contents/Resources/createinstallmedia --volume /Volumes/InstallUSB
+
+
+🔹 This will take several minutes. When it finishes, you’ll see something like:
+"Install media now available at /Volumes/Install macOS Monterey"
+
+Eject the dmg
+
+hdiutil detach /Volumes/InstallUSB
+
+
+✅ Now you have ~/MontereyInstaller.dmg inside your VM.
+
+🔹 Move the .dmg to your Host (M4 Mac)
+
+Use Shared Folder in VirtualBuddy, or upload the dmg to iCloud/Google Drive from the VM, then download it on your M4 host.
+
+Place it somewhere on your M4 host, e.g. ~/Downloads/MontereyInstaller.dmg.
+
+🔹 On your M4 Host (real Mac)
+
+Plug in your USB drive (at least 16GB).
+
+Check which disk it is:
+
+diskutil list
+
+
+Suppose it shows as /dev/disk4.
+
+Unmount the USB
+
+diskutil unmountDisk /dev/disk4
+
+
+Restore the dmg onto the USB (⚠️ this erases the USB!)
+
+sudo asr restore --source ~/Downloads/MontereyInstaller.dmg --target /dev/disk4 --erase --noverify
+
+
+Eject the USB
+
+diskutil eject /dev/disk4
+
+
+✅ Now your USB is a real bootable Monterey installer.
+
+🔹 Use it on your Intel MacBook Air A1932
+
+Insert the USB into the Intel Mac.
+
+Power on and hold Option (⌥) immediately.
+
+Select Install macOS Monterey from the boot menu.
+
+Erase the SSD (APFS, GUID).
+
+Install macOS.
